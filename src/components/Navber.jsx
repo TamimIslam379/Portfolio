@@ -17,7 +17,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const go = (id) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div className="sticky top-0 z-50">
@@ -27,8 +28,11 @@ export default function Navbar() {
         }`}
       >
         <div className="flex items-center justify-between">
-          <button onClick={() => go("top")} className="font-semibold tracking-wide">
-            <span className="text-cyan-300">S</span>umaiya
+          <button
+            onClick={() => go("top")}
+            className="font-semibold tracking-wide"
+          >
+            <span className="text-cyan-300">M</span>d. Tammim Islam
           </button>
           <div className="hidden md:flex gap-6 text-sm text-gray-200">
             {links.map((l) => (

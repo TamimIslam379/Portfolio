@@ -38,7 +38,6 @@ function GradientCard() {
 export default function Hero() {
   return (
     <section id="top" className="relative z-10">
-        <h2 className="mt-3 text-4xl md:text-5xl font-bold leading-tight text-white"> Hello </h2>
       <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 md:pt-24">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
@@ -57,14 +56,17 @@ export default function Hero() {
               animate={fadeUp.show(1)}
               className="mt-3 text-4xl md:text-5xl font-bold leading-tight"
             >
-              Hi, I’m <span className="text-cyan-300">{profile.name}</span>
+              Hi, I’m{" "}
+              <span className="gradient-text bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 bg-clip-text text-transparent">
+                {profile.name}
+              </span>
             </motion.h2>
 
             <motion.p
               variants={fadeUp}
               initial="hidden"
               animate={fadeUp.show(2)}
-              className="mt-4 text-gray-200/90"
+              className="mt-4 text-cyan-400"
             >
               {profile.role}
             </motion.p>
@@ -126,7 +128,9 @@ export default function Hero() {
                   key={s.label}
                   className="rounded-2xl border border-white/10 bg-white/5 p-4"
                 >
-                  <div className="text-xl font-semibold text-cyan-200">{s.value}</div>
+                  <div className="text-xl font-semibold text-cyan-200">
+                    {s.value}
+                  </div>
                   <div className="text-xs text-gray-300 mt-1">{s.label}</div>
                 </div>
               ))}

@@ -2,12 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
+:root {
+  color-scheme: dark;
+}
 
-html, body { height: 100%; }
+html,
 body {
-  background: radial-gradient(1200px 600px at 20% 10%, rgba(34,211,238,.12), transparent 60%),
-              radial-gradient(900px 500px at 80% 30%, rgba(139,92,246,.12), transparent 60%),
-              #070a12;
+  height: 100%;
+}
+body {
+  background:
+    radial-gradient(
+      1200px 600px at 20% 10%,
+      rgba(34, 211, 238, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 80% 30%,
+      rgba(139, 92, 246, 0.12),
+      transparent 60%
+    ),
+    #070a12;
   color: #e5e7eb;
+}
+@keyframes animate-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  background-size: 200% 200%;
+  animation: animate-gradient 3s ease infinite;
 }

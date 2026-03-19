@@ -4,13 +4,14 @@ import SectionTitle from "./SectionTitile";
 
 const items = [
   {
-    title: "Frontend Developer — Genzam IT (Remote)",
+    title: "QA Harbour",
     time: "2024",
     bullets: [
-      "Developed 6+ responsive web modules using React.js and REST APIs; improved load speed by 30%.",
-      "Built 12+ reusable components; reduced development time by 25%.",
-      "Supported 1,000+ active users via API integration and UI stability improvements.",
-      "Fixed 40+ frontend bugs; collaborated with a 10+ member cross-functional team.",
+      "Worked as a Frontend Developer at QA Harbour, a Quality Assurance company.",
+      "Built modern, responsive web interfaces using React, JavaScript, and Tailwind CSS.",
+      "Collaborated with QA teams to detect, troubleshoot, and fix UI-related issues.",
+      "Integrated backend services through REST APIs for seamless application functionality.",
+      "Focused on writing clean, reusable, and maintainable code to improve overall product quality.",
     ],
   },
 ];

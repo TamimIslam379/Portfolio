@@ -1,9 +1,37 @@
-
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { profile } from "../data/profile";
 import SectionTitle from "./SectionTitile";
 
 export default function Contact() {
+  const formRef = useRef(null);
+  const [sending, setSending] = useState(false);
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    setSending(true);
+
+    try {
+       await emailjs.sendForm(
+         import.meta.env.VITE_EMAILJS_SERVICE_ID,
+         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+         formRef.current,
+         {
+           publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+         },
+       );
+
+      alert("Message sent successfully ✅");
+      formRef.current.reset();
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      alert("Failed to send message ❌");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <section id="contact" className="relative z-10">
       <div className="mx-auto max-w-6xl px-4 py-14">
@@ -13,11 +41,13 @@ export default function Contact() {
           desc="Send a message and I’ll reply as soon as I can."
         />
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
             <div className="text-gray-300">
               Email me directly:
-              <div className="mt-2 text-cyan-200 font-semibold">{profile.email}</div>
+              <div className="mt-2 font-semibold text-cyan-200">
+                {profile.email}
+              </div>
             </div>
 
             <div className="mt-6 flex gap-3">
@@ -25,59 +55,59 @@ export default function Contact() {
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition flex items-center gap-2"
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:bg-white/10"
               >
                 <FaGithub /> GitHub
               </a>
+
               <a
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition flex items-center gap-2"
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:bg-white/10"
               >
                 <FaLinkedin /> LinkedIn
               </a>
             </div>
-
-            <p className="mt-6 text-sm text-gray-400">
-              Tip: Add your live project links in <code>src/data/profile.js</code> for maximum impact.
-            </p>
           </div>
 
           <form
+            ref={formRef}
+            onSubmit={sendEmail}
             className="rounded-3xl border border-white/10 bg-white/5 p-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Hook this form to EmailJS / Formspree when you’re ready ✅");
-            }}
           >
             <label className="block text-sm text-gray-300">Name</label>
             <input
-              className="mt-2 w-full rounded-xl bg-black/30 border border-white/10 px-4 py-3 outline-none focus:border-cyan-300/40"
+              type="text"
+              name="user_name"
+              className="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan-300/40"
               placeholder="Your name"
               required
             />
 
-            <label className="block text-sm text-gray-300 mt-4">Email</label>
+            <label className="mt-4 block text-sm text-gray-300">Email</label>
             <input
               type="email"
-              className="mt-2 w-full rounded-xl bg-black/30 border border-white/10 px-4 py-3 outline-none focus:border-cyan-300/40"
+              name="user_email"
+              className="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan-300/40"
               placeholder="you@email.com"
               required
             />
 
-            <label className="block text-sm text-gray-300 mt-4">Message</label>
+            <label className="mt-4 block text-sm text-gray-300">Message</label>
             <textarea
-              className="mt-2 w-full min-h-[120px] rounded-xl bg-black/30 border border-white/10 px-4 py-3 outline-none focus:border-cyan-300/40"
+              name="message"
+              className="mt-2 min-h-[120px] w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan-300/40"
               placeholder="Let’s work together..."
               required
             />
 
             <button
               type="submit"
-              className="mt-5 w-full rounded-xl bg-cyan-400/20 border border-cyan-300/30 hover:bg-cyan-400/30 transition py-3 font-semibold"
+              disabled={sending}
+              className="mt-5 w-full rounded-xl border border-cyan-300/30 bg-cyan-400/20 py-3 font-semibold transition hover:bg-cyan-400/30 disabled:opacity-60"
             >
-              Send Message
+              {sending ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
